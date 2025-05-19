@@ -7,6 +7,12 @@
                 :fields="fields"
                 :show-edit="true"
             />
+            <DashboardDietInfo
+                title="Diet"
+                icon="mdi:pets"
+                iconLabel="Pets"
+                :fields="feedingFields"
+            />
         </section>
     </section>
 </template>
@@ -21,5 +27,11 @@ const fields = ref([
     { label: "Weight", value: "4.5kg" },
     { label: "Microchip No.", value: "9001330003382" },
     { label: "Color", value: "White" },
+]);
+
+const feedingFields = ref([
+    { label: "Brand & Line", value: "Royal Canine, Adult Cat" },
+    { label: "Feeding Amount", value: "26 gr" },
+    { label: "Schedule", value: "2 times per day" },
 ]);
 </script>
