@@ -522,6 +522,20 @@
     "@floating-ui/utils" "^0.2.9"
     vue-demi ">=0.13.0"
 
+"@iconify-json/basil@^1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@iconify-json/basil/-/basil-1.2.2.tgz#76acc732497c47a1adc1074991a717be9959c6ac"
+  integrity sha512-l2RX+0Hw831WrnvnuWsBPT5ipG7hP+Q24DiN5kUt/Afi7kaO7p6eUnl/BmhbJIS4ySpw0hjtJ4lcEkpy2VAYgg==
+  dependencies:
+    "@iconify/types" "*"
+
+"@iconify-json/mdi@^1.2.3":
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/@iconify-json/mdi/-/mdi-1.2.3.tgz#5e4ee9d8c8aaad04381c8cc6c6edbe3327f031b5"
+  integrity sha512-O3cLwbDOK7NNDf2ihaQOH5F9JglnulNDFV7WprU2dSoZu3h3cWH//h74uQAB87brHmvFVxIOkuBX2sZSzYhScg==
+  dependencies:
+    "@iconify/types" "*"
+
 "@iconify/collections@^1.0.548":
   version "1.0.549"
   resolved "https://registry.yarnpkg.com/@iconify/collections/-/collections-1.0.549.tgz#4a8bc861e614b135aa55a5ef3436572906ac4544"

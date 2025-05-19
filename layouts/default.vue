@@ -19,8 +19,8 @@
 import { useMediaQuery } from "@vueuse/core";
 
 const isDesktop = useMediaQuery("(min-width: 1024px)", {
-    // avoid hydration mismatch in SSR
-    ssrWidth: 768,
+	// avoid hydration mismatch in SSR
+	ssrWidth: 768,
 });
 </script>
 

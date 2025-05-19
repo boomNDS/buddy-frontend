@@ -1,9 +1,25 @@
 <template>
-    <div>
-        <h1 class="text-2xl font-bold mb-6">Dashboard</h1>
-        <div class="w-20 h-20 bg-red-300">red</div>
-        <div class="w-20 h-20 bg-red-300">red</div>
-    </div>
+    <section>
+        <LayoutHeader />
+        <section>
+            <DashboardPetInfo
+                title="Lucky"
+                :fields="fields"
+                :show-edit="true"
+            />
+        </section>
+    </section>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref } from "vue";
+
+const fields = ref([
+    { label: "Sex", value: "Male" },
+    { label: "Age", value: "29" },
+    { label: "Location", value: "Bangkok" },
+    { label: "Role", value: "Developer" },
+    { label: "Status", value: "Active" },
+    { label: "Joined", value: "2021" },
+]);
+</script>

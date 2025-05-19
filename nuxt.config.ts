@@ -4,6 +4,11 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineNuxtConfig({
   compatibilityDate: "2025-05-15",
   devtools: { enabled: true },
+  image: {
+    inject: true,
+    format: ["avif", "webp"],
+    dir: "assets/images",
+  },
   app: {
     head: {
       title: "Pet Care App",
@@ -37,5 +42,12 @@ export default defineNuxtConfig({
      * @default "./components/ui"
      */
     componentDir: "./components/ui",
+  },
+  icon: {
+    mode: "css",
+    cssLayer: "base",
+    serverBundle: {
+      collections: ["mdi", "basil"],
+    },
   },
 });
