@@ -16,10 +16,10 @@ import { ref } from "vue";
 
 const fields = ref([
     { label: "Sex", value: "Male" },
-    { label: "Age", value: "29" },
-    { label: "Location", value: "Bangkok" },
-    { label: "Role", value: "Developer" },
-    { label: "Status", value: "Active" },
-    { label: "Joined", value: "2021" },
+    { label: "Birth Date", value: "12.03.2023" },
+    { label: "Breed", value: "American Shorthair" },
+    { label: "Weight", value: "4.5kg" },
+    { label: "Microchip No.", value: "9001330003382" },
+    { label: "Color", value: "White" },
 ]);
 </script>

@@ -29,9 +29,9 @@
 import { defineProps } from "vue";
 
 defineProps<{
-    title: string;
-    fields: { label: string; value: string }[];
-    showEdit?: boolean;
+	title: string;
+	fields: { label: string; value: string }[];
+	showEdit?: boolean;
 }>();
 </script>
 
