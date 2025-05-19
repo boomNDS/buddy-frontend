@@ -46,16 +46,16 @@
 import { defineProps } from "vue";
 
 interface Field {
-    label: string;
-    value: string;
+	label: string;
+	value: string;
 }
 
 defineProps<{
-    title: string;
-    icon: string;
-    iconLabel?: string;
-    fields: Field[];
-    showEdit?: boolean;
+	title: string;
+	icon: string;
+	iconLabel?: string;
+	fields: Field[];
+	showEdit?: boolean;
 }>();
 </script>
 

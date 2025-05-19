@@ -11,6 +11,7 @@
             ]"
         >
             <slot />
+            <LayoutNavbar />
         </div>
     </main>
 </template>

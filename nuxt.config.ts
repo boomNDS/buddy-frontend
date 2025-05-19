@@ -47,7 +47,7 @@ export default defineNuxtConfig({
 		mode: "css",
 		cssLayer: "base",
 		serverBundle: {
-			collections: ["mdi", "basil"],
+			collections: ["mdi", "basil", "fluent", "heroicons"],
 		},
 	},
 });
