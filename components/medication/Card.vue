@@ -19,6 +19,6 @@
 import type { MedicationItem } from "~/composables/useDefaultItems";
 
 defineProps<{
-    item: MedicationItem;
+	item: MedicationItem;
 }>();
 </script>

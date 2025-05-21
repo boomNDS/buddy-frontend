@@ -31,22 +31,22 @@ import { useNuxtApp } from "#app";
 const { $dayjs: dayjs } = useNuxtApp();
 
 interface VetCardItem {
-    imageSrc: string;
-    hospitalName: string;
-    status: "pending" | "completed";
-    statusLabel: string;
-    date: string; // ISO date string
+	imageSrc: string;
+	hospitalName: string;
+	status: "pending" | "completed";
+	statusLabel: string;
+	date: string; // ISO date string
 }
 
 const props = defineProps({
-    item: {
-        type: Object as PropType<VetCardItem>,
-        required: true,
-    },
+	item: {
+		type: Object as PropType<VetCardItem>,
+		required: true,
+	},
 });
 
 const formattedDate = computed(() => {
-    return dayjs(props.item.date).format("DD MMM, YYYY");
+	return dayjs(props.item.date).format("DD MMM, YYYY");
 });
 </script>
 

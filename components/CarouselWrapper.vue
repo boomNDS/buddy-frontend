@@ -73,16 +73,16 @@
 </template>
 
 <script setup lang="ts" generic="T">
-import { ref, onMounted } from "vue";
 import { useElementSize } from "@vueuse/core";
+import { onMounted, ref } from "vue";
 
 const props = defineProps<{
-    title: string;
-    icon: string;
-    iconLabel: string;
-    items: T[];
-    hideDots: boolean;
-    showEdit: boolean;
+	title: string;
+	icon: string;
+	iconLabel: string;
+	items: T[];
+	hideDots: boolean;
+	showEdit: boolean;
 }>();
 
 const items = ref(props.items);
@@ -91,7 +91,7 @@ const current = ref(0);
 const { width: sliderWidth } = useElementSize(slider);
 
 function onWheel(e: WheelEvent) {
-    slider?.value?.scrollBy({ left: e.deltaY, behavior: "smooth" });
+	slider?.value?.scrollBy({ left: e.deltaY, behavior: "smooth" });
 }
 
 let isDragging = false;
@@ -99,42 +99,42 @@ let startX = 0;
 let scrollStart = 0;
 
 function onDragStart(e: MouseEvent) {
-    if (!slider.value) return;
-    isDragging = true;
-    slider.value.classList.add("cursor-grabbing");
-    startX = e.pageX - slider.value.offsetLeft;
-    scrollStart = slider.value.scrollLeft;
+	if (!slider.value) return;
+	isDragging = true;
+	slider.value.classList.add("cursor-grabbing");
+	startX = e.pageX - slider.value.offsetLeft;
+	scrollStart = slider.value.scrollLeft;
 }
 
 function onDragMove(e: MouseEvent) {
-    if (!isDragging || !slider.value) return;
-    e.preventDefault();
-    const x = e.pageX - slider.value.offsetLeft;
-    const walk = x - startX;
-    slider.value.scrollLeft = scrollStart - walk;
+	if (!isDragging || !slider.value) return;
+	e.preventDefault();
+	const x = e.pageX - slider.value.offsetLeft;
+	const walk = x - startX;
+	slider.value.scrollLeft = scrollStart - walk;
 }
 
 function onDragEnd() {
-    if (!slider.value) return;
-    isDragging = false;
-    slider.value.classList.remove("cursor-grabbing");
+	if (!slider.value) return;
+	isDragging = false;
+	slider.value.classList.remove("cursor-grabbing");
 }
 
 function goTo(idx: number) {
-    slider?.value?.scrollTo({
-        left: idx * sliderWidth.value,
-        behavior: "smooth",
-    });
+	slider?.value?.scrollTo({
+		left: idx * sliderWidth.value,
+		behavior: "smooth",
+	});
 }
 
 function onScroll() {
-    if (!slider.value) return;
-    const newIndex = Math.round(slider.value.scrollLeft / sliderWidth.value);
-    current.value = Math.min(Math.max(newIndex, 0), items.value.length - 1);
+	if (!slider.value) return;
+	const newIndex = Math.round(slider.value.scrollLeft / sliderWidth.value);
+	current.value = Math.min(Math.max(newIndex, 0), items.value.length - 1);
 }
 
 onMounted(() => {
-    setTimeout(onScroll, 50);
+	setTimeout(onScroll, 50);
 });
 </script>
 

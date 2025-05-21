@@ -1,4 +1,5 @@
 import tailwindcss from "@tailwindcss/vite";
+import svgLoader from "vite-svg-loader";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -6,7 +7,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   image: {
     inject: true,
-    format: ["avif", "webp"],
+    format: ["avif", "webp", "svg"],
     dir: "assets/images",
   },
   app: {
@@ -28,10 +29,11 @@ export default defineNuxtConfig({
     "@vueuse/nuxt",
     "shadcn-nuxt",
     "dayjs-nuxt",
+    "nuxt-svgo",
   ],
   css: ["~/assets/css/main.css"],
   vite: {
-    plugins: [tailwindcss()],
+    plugins: [tailwindcss(), svgLoader()],
   },
   shadcn: {
     /**
@@ -48,7 +50,7 @@ export default defineNuxtConfig({
     mode: "css",
     cssLayer: "base",
     serverBundle: {
-      collections: ["mdi", "basil", "fluent", "heroicons"],
+      collections: ["mdi", "basil", "fluent", "heroicons", "iconoir"],
     },
   },
   // https://nuxt.com/modules/dayjs

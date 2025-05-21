@@ -7,6 +7,9 @@
     "noImplicitAny": true,
 
     "paths": {
+      "~/*": ["./*"],
+      "@/*": ["./*"],
+      "src/*": ["src/*"],
       "#app": [".nuxt/imports.d.ts"],
       "#imports": [".nuxt/imports.d.ts"],
       "#vue": [".nuxt/imports.d.ts"],

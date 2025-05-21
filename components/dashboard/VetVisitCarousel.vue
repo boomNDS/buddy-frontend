@@ -19,12 +19,12 @@ import type { VetVisitItem } from "~/composables/useVetVisitItems";
 import { useVetVisitItems } from "~/composables/useVetVisitItems";
 
 const props = defineProps({
-    title: { type: String, default: "Vet Visits" },
-    icon: { type: String, default: "mdi:pet" },
-    iconLabel: { type: String, default: "Vet Visits" },
-    items: { type: Array as () => VetVisitItem[], default: () => [] },
-    hideDots: { type: Boolean, default: false },
-    showEdit: { type: Boolean, default: true },
+	title: { type: String, default: "Vet Visits" },
+	icon: { type: String, default: "mdi:pet" },
+	iconLabel: { type: String, default: "Vet Visits" },
+	items: { type: Array as () => VetVisitItem[], default: () => [] },
+	hideDots: { type: Boolean, default: false },
+	showEdit: { type: Boolean, default: true },
 });
 
 const itemsToDisplay = computed(() => useVetVisitItems(props.items).value);

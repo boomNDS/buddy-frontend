@@ -4,14 +4,19 @@
     >
         <div
             :class="[
-                'bg-[#FFF9F3] overflow-auto transition-all',
+                'bg-[#FFF9F3] transition-all overflow-hidden relative',
                 isDesktop
-                    ? 'w-full max-w-[375px] h-full max-h-[812px] shadow-xl border-6 border-gray-700 rounded-lg m-auto'
+                    ? 'w-full max-w-[375px] h-full max-h-[812px] shadow-xl border border-gray-700 rounded-lg'
                     : 'w-screen h-screen',
             ]"
         >
-            <slot />
-            <LayoutNavbar />
+            <div class="overflow-auto h-full pb-34">
+                <slot />
+            </div>
+
+            <div class="absolute bottom-0 left-0 right-0 bg-[#FFF9F3]">
+                <LayoutNavbar />
+            </div>
         </div>
     </main>
 </template>
@@ -20,8 +25,7 @@
 import { useMediaQuery } from "@vueuse/core";
 
 const isDesktop = useMediaQuery("(min-width: 1024px)", {
-	// avoid hydration mismatch in SSR
-	ssrWidth: 768,
+    ssrWidth: 768,
 });
 </script>
 
