@@ -10,11 +10,11 @@
                     : 'w-screen h-screen',
             ]"
         >
-            <div class="overflow-auto h-full pb-34">
+            <div class="overflow-auto h-full pb-36">
                 <slot />
             </div>
 
-            <div class="absolute bottom-0 left-0 right-0 bg-[#FFF9F3]">
+            <div class="absolute bottom-0 left-0 right-0">
                 <LayoutNavbar />
             </div>
         </div>
