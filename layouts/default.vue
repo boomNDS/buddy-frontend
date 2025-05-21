@@ -25,7 +25,7 @@
 import { useMediaQuery } from "@vueuse/core";
 
 const isDesktop = useMediaQuery("(min-width: 1024px)", {
-    ssrWidth: 768,
+	ssrWidth: 768,
 });
 </script>
 
