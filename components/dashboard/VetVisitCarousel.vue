@@ -8,26 +8,26 @@
         :showEdit="showEdit"
     >
         <template #default="{ item, idx }">
-            <MedicationCard :item="item" :idx="idx" />
+            <VetVisitCard :item="item" :idx="idx" />
         </template>
     </CarouselWrapper>
 </template>
 
 <script setup lang="ts">
 import { computed } from "vue";
-import type { MedicationItem } from "~/composables/useDefaultItems";
-import { useDefaultItems } from "~/composables/useDefaultItems";
+import type { VetVisitItem } from "~/composables/useVetVisitItems";
+import { useVetVisitItems } from "~/composables/useVetVisitItems";
 
 const props = defineProps({
-    title: { type: String, default: "Medications" },
-    icon: { type: String, default: "mdi:pill" },
-    iconLabel: { type: String, default: "Medication" },
-    items: { type: Array as () => MedicationItem[], default: () => [] },
+    title: { type: String, default: "Vet Visits" },
+    icon: { type: String, default: "mdi:pet" },
+    iconLabel: { type: String, default: "Vet Visits" },
+    items: { type: Array as () => VetVisitItem[], default: () => [] },
     hideDots: { type: Boolean, default: false },
     showEdit: { type: Boolean, default: true },
 });
 
-const itemsToDisplay = computed(() => useDefaultItems(props.items).value);
+const itemsToDisplay = computed(() => useVetVisitItems(props.items).value);
 </script>
 
 <style scoped></style>
