@@ -26,6 +26,7 @@
 		"lucide-vue-next": "^0.511.0",
 		"nuxt": "^3.17.3",
 		"nuxt-svgo": "4.2.1",
+		"ofetch": "^1.4.1",
 		"reka-ui": "^2.2.1",
 		"shadcn-nuxt": "2.1.0",
 		"tailwind-merge": "^3.3.0",

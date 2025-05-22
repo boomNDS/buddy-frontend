@@ -1,164 +1,194 @@
 <template>
-    <div class="flex items-center gap-2 mx-2 my-5">
-        <Icon
-            name="line-md:arrow-left"
-            class="bg-[#425F58] w-6 h-6 cursor-pointer"
-            @click="router.back()"
-        />
-        <h1 class="text-lg text-[#425F58]">Add Vet Visit</h1>
-    </div>
-
-    <Form
-        class="flex flex-col w-full px-4 space-y-2"
-        :validation-schema="formSchema"
-        @submit="onSubmit"
-    >
-        <FormField name="clinic">
-            <FormItem>
-                <FormLabel>Vet Clinic</FormLabel>
-                <FormControl>
-                    <Select v-model="form.values.clinic">
-                        <SelectTrigger class="w-full bg-white">
-                            <SelectValue placeholder="Select a clinic" />
-                        </SelectTrigger>
-                        <SelectContent class="max-h-60 overflow-auto">
-                            <SelectGroup>
-                                <SelectItem value="clinic-a"
-                                    >Clinic A</SelectItem
-                                >
-                                <SelectItem value="clinic-b"
-                                    >Clinic B</SelectItem
-                                >
-                                <SelectItem value="clinic-c"
-                                    >Clinic C</SelectItem
-                                >
-                            </SelectGroup>
-                        </SelectContent>
-                    </Select>
-                </FormControl>
-                <FormMessage />
-            </FormItem>
-        </FormField>
-
-        <FormField name="date">
-            <FormItem class="flex flex-col">
-                <FormLabel>Date</FormLabel>
-                <Popover>
-                    <PopoverTrigger as-child>
-                        <FormControl>
-                            <Button
-                                variant="outline"
-                                class="w-full justify-start bg-white text-left font-normal"
-                            >
-                                {{
-                                    form.values.date
-                                        ? df.format(dayjs(form.values.date))
-                                        : "Pick a date"
-                                }}
-                                <CalendarIcon
-                                    class="ms-auto h-4 w-4 opacity-50"
-                                />
-                            </Button>
-                            <input hidden />
-                        </FormControl>
-                    </PopoverTrigger>
-                    <PopoverContent class="w-auto p-0">
-                        <Calendar
-                            v-model="form.values.date"
-                            calendar-label="Visit Date"
-                            initial-focus
-                            :min-value="new CalendarDate(2000, 1, 1)"
-                            :max-value="today(getLocalTimeZone())"
-                            @update:model-value="
-                                (v) => (form.values.date = v || '')
-                            "
-                        />
-                    </PopoverContent>
-                </Popover>
-                <FormMessage />
-            </FormItem>
-        </FormField>
-
-        <FormField name="time">
-            <FormItem>
-                <FormLabel>Time</FormLabel>
-                <FormControl>
-                    <Input
-                        type="time"
-                        v-model="form.values.time"
-                        class="w-full bg-white"
-                    />
-                </FormControl>
-            </FormItem>
-        </FormField>
-
-        <div class="flex flex-col gap-2 pt-4 mt-[18rem]">
-            <Button variant="green" type="submit" class="w-full">Save</Button>
-            <Button variant="ghost" class="w-full" @click="router.back()">
-                Cancel
-            </Button>
+    <div class="flex flex-col w-full">
+        <div class="flex items-center gap-2 mx-2 my-5">
+            <Icon
+                name="line-md:arrow-left"
+                class="bg-[#425F58] w-6 h-6 cursor-pointer"
+                @click="router.back()"
+            />
+            <h1 class="text-lg text-[#425F58]">Add Vet Visit</h1>
         </div>
-    </Form>
+
+        <div
+            v-if="error"
+            class="bg-red-50 border border-red-200 text-red-600 px-4 py-3 mx-4 mb-4 rounded-md shadow-sm flex items-center"
+        >
+            <Icon
+                name="heroicons:exclamation-circle"
+                class="w-5 h-5 mr-2 text-red-500"
+            />
+            <span>{{ error }}</span>
+        </div>
+
+        <div
+            v-if="isLoading"
+            class="flex flex-col justify-center items-center my-12"
+        >
+            <div
+                class="inline-block animate-spin rounded-full h-10 w-10 border-4 border-t-[#425F58] border-r-transparent border-b-[#425F58] border-l-transparent mb-3"
+            ></div>
+            <span class="text-gray-600 font-medium">Loading clinics...</span>
+        </div>
+
+        <form
+            v-if="!isLoading"
+            class="flex flex-col w-full px-4 space-y-5"
+            @submit.prevent="onSubmit"
+        >
+            <div class="space-y-2">
+                <Label for="clinic" class="text-sm font-medium text-gray-700"
+                    >Vet Clinic</Label
+                >
+                <Select v-model="formData.clinic">
+                    <SelectTrigger
+                        class="w-full bg-white focus:border-[#425F58] focus:ring-1 focus:ring-[#425F58]"
+                    >
+                        <SelectValue placeholder="Select a clinic" />
+                    </SelectTrigger>
+                    <SelectContent class="max-h-60 overflow-auto">
+                        <SelectGroup>
+                            <SelectItem
+                                v-for="clinic in clinics"
+                                :key="clinic.id"
+                                :value="clinic.id.toString()"
+                            >
+                                {{ clinic.name }}
+                            </SelectItem>
+                        </SelectGroup>
+                    </SelectContent>
+                </Select>
+                <p
+                    v-if="errors.clinic"
+                    class="text-sm text-red-500 mt-1 flex items-center"
+                >
+                    <Icon
+                        name="heroicons:exclamation-circle"
+                        class="w-4 h-4 mr-1"
+                    />
+                    {{ errors.clinic }}
+                </p>
+            </div>
+
+            <div class="space-y-2">
+                <Label for="date" class="text-sm font-medium text-gray-700"
+                    >Date</Label
+                >
+                <div class="relative">
+                    <Input
+                        id="date"
+                        type="date"
+                        v-model="formData.date"
+                        class="w-full bg-white px-4 py-2 rounded-md border border-input focus:border-[#425F58] focus:ring-1 focus:ring-[#425F58] outline-none transition-colors"
+                    />
+                    <div
+                        class="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none text-gray-400"
+                    >
+                        <Icon name="heroicons:calendar" class="w-4 h-4" />
+                    </div>
+                </div>
+                <p
+                    v-if="errors.date"
+                    class="text-sm text-red-500 mt-1 flex items-center"
+                >
+                    <Icon
+                        name="heroicons:exclamation-circle"
+                        class="w-4 h-4 mr-1"
+                    />
+                    {{ errors.date }}
+                </p>
+            </div>
+
+            <div class="space-y-2">
+                <Label for="time" class="text-sm font-medium text-gray-700"
+                    >Time</Label
+                >
+                <div class="time-picker">
+                    <TimePicker v-model="formData.time" />
+                </div>
+                <p
+                    v-if="errors.time"
+                    class="text-sm text-red-500 mt-1 flex items-center"
+                >
+                    <Icon
+                        name="heroicons:exclamation-circle"
+                        class="w-4 h-4 mr-1"
+                    />
+                    {{ errors.time }}
+                </p>
+            </div>
+
+            <!-- <div class="space-y-2">
+                <Label for="notes" class="text-sm font-medium text-gray-700"
+                    >Notes</Label
+                >
+                <textarea
+                    id="notes"
+                    v-model="formData.notes"
+                    placeholder="Additional notes for the vet visit"
+                    class="flex min-h-[80px] w-full rounded-md border border-input bg-white px-4 py-2 text-sm placeholder:text-gray-400 focus:border-[#425F58] focus:ring-1 focus:ring-[#425F58] outline-none transition-colors resize-none"
+                ></textarea>
+            </div> -->
+
+            <div class="flex flex-col gap-3 pt-4 mt-[12rem]">
+                <Button
+                    type="submit"
+                    class="w-full bg-[#425F58] hover:bg-[#354a45] border-none shadow-sm py-6 text-white font-medium text-base rounded-md transition-all duration-200 flex items-center justify-center"
+                    :disabled="isSubmitting"
+                    :class="{ 'opacity-70 cursor-not-allowed': isSubmitting }"
+                >
+                    <div class="flex items-center">
+                        <Icon
+                            v-if="isSubmitting"
+                            name="line-md:loading-twotone-loop"
+                            class="w-5 h-5 mr-2 animate-spin"
+                        />
+                        <span>{{
+                            isSubmitting ? "Saving..." : "Save Vet Visit"
+                        }}</span>
+                    </div>
+                </Button>
+                <Button
+                    variant="outline"
+                    class="w-full border border-[#425F58] text-[#425F58] py-6 rounded-md hover:bg-[#f0f5f4] transition-all duration-200 font-medium text-base"
+                    @click="router.back()"
+                    :disabled="isSubmitting"
+                >
+                    Cancel
+                </Button>
+            </div>
+        </form>
+    </div>
 </template>
 
 <script setup lang="ts">
-import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
-import {
-	Form,
-	FormControl,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage,
-} from "@/components/ui/form";
-import {
-	Popover,
-	PopoverContent,
-	PopoverTrigger,
-} from "@/components/ui/popover";
-import {
-	Select,
-	SelectContent,
-	SelectGroup,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from "@/components/ui/select";
-import {
-	CalendarDate,
-	DateFormatter,
-	getLocalTimeZone,
-	today,
-} from "@internationalized/date";
-import { toTypedSchema } from "@vee-validate/zod";
-import dayjs from "dayjs";
-import { CalendarIcon } from "lucide-vue-next";
-import { useForm } from "vee-validate";
+import { onMounted } from "vue";
 import { useRouter } from "vue-router";
-import * as z from "zod";
 
-const df = new DateFormatter("en-US", { dateStyle: "long" });
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { TimePicker } from "@/components/ui/time-picker";
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
+import { useVetVisitForm } from "~/composables/useVetVisitForm";
+
 const router = useRouter();
+const {
+    isLoading,
+    clinics,
+    formData,
+    errors,
+    error,
+    isSubmitting,
+    loadClinics,
+    onSubmit,
+} = useVetVisitForm();
 
-const formSchema = toTypedSchema(
-	z.object({
-		clinic: z.string().min(1, "Please select a vet clinic"),
-		date: z.string().min(1, "Please select a date"),
-		time: z.string().min(1, "Please select a time"),
-	}),
-);
-
-const form = useForm({
-	validationSchema: formSchema,
-	initialValues: { clinic: "", date: "", time: "" },
-});
-
-const onSubmit = form.handleSubmit((values) => {
-	console.log({
-		clinic: values.clinic,
-		date: values.date,
-		time: form.values.time,
-	});
-});
+onMounted(loadClinics);
 </script>
