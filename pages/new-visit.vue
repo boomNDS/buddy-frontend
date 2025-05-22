@@ -168,26 +168,26 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
+	Select,
+	SelectContent,
+	SelectGroup,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
 } from "@/components/ui/select";
 import { TimePicker } from "@/components/ui/time-picker";
 import { useVetVisitForm } from "~/composables/useVetVisitForm";
 
 const router = useRouter();
 const {
-    isLoading,
-    clinics,
-    formData,
-    errors,
-    error,
-    isSubmitting,
-    loadClinics,
-    onSubmit,
+	isLoading,
+	clinics,
+	formData,
+	errors,
+	error,
+	isSubmitting,
+	loadClinics,
+	onSubmit,
 } = useVetVisitForm();
 
 onMounted(loadClinics);
