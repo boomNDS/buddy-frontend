@@ -5,7 +5,10 @@
 		"clientKind": "git",
 		"useIgnoreFile": false
 	},
-	"files": { "ignoreUnknown": false, "ignore": [".husky", ".nuxt", ".output"] },
+	"files": {
+		"ignoreUnknown": false,
+		"ignore": [".husky", ".nuxt", ".output", "./components/ui"]
+	},
 	"formatter": { "enabled": true, "indentStyle": "tab" },
 	"organizeImports": { "enabled": true },
 	"linter": {

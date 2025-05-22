@@ -50,7 +50,14 @@ export default defineNuxtConfig({
 		mode: "css",
 		cssLayer: "base",
 		serverBundle: {
-			collections: ["mdi", "basil", "fluent", "heroicons", "iconoir"],
+			collections: [
+				"mdi",
+				"basil",
+				"fluent",
+				"heroicons",
+				"iconoir",
+				"line-md",
+			],
 		},
 	},
 	// https://nuxt.com/modules/dayjs
