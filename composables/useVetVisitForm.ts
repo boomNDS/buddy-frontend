@@ -1,9 +1,9 @@
-import { ref, reactive } from "vue";
-import { useRouter } from "vue-router";
-import { useDayjs } from "#imports";
-import { mockFetchClinics, mockAddVetVisit } from "@/services/clinicService";
+import { addVetVisit, fetchClinics } from "@/services/clinicService";
 import type { Clinic } from "@/services/clinicService";
+import { reactive, ref } from "vue";
+import { useRouter } from "vue-router";
 import { z } from "zod";
+import { useDayjs } from "#imports";
 
 const schema = z.object({
   clinic: z.string().min(1, "Please select a vet clinic"),
@@ -33,7 +33,7 @@ export function useVetVisitForm() {
     isLoading.value = true;
     error.value = null;
     try {
-      clinics.value = await mockFetchClinics();
+      clinics.value = await fetchClinics();
     } catch (err) {
       error.value = "Failed to load clinics";
     } finally {
@@ -77,7 +77,7 @@ export function useVetVisitForm() {
         notes: formData.notes || "",
       };
       console.log("Submitting visit data:", data);
-      const result = await mockAddVetVisit(data);
+      const result = await addVetVisit(data);
       if (result) router.push("/");
     } catch (err: any) {
       error.value = err.message || "Submission failed";

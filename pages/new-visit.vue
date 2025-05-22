@@ -148,8 +148,8 @@
                     </div>
                 </Button>
                 <Button
-                    variant="outline"
-                    class="w-full border border-[#425F58] text-[#425F58] py-6 rounded-md hover:bg-[#f0f5f4] transition-all duration-200 font-medium text-base"
+                    variant="ghost"
+                    class="w-full text-[#425F58] py-6 rounded-md hover:bg-[#f0f5f4] transition-all duration-200 font-medium text-base"
                     @click="router.back()"
                     :disabled="isSubmitting"
                 >
@@ -167,7 +167,6 @@ import { useRouter } from "vue-router";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { TimePicker } from "@/components/ui/time-picker";
 import {
     Select,
     SelectContent,
@@ -176,6 +175,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
+import { TimePicker } from "@/components/ui/time-picker";
 import { useVetVisitForm } from "~/composables/useVetVisitForm";
 
 const router = useRouter();

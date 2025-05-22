@@ -65,51 +65,51 @@
 
 <script setup lang="ts">
 import dayjs from "dayjs";
-import { ref, onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import { useDashboard } from "~/composables/useDashboard";
 
 const { isLoading, loadDashboard } = useDashboard();
 
 const fields = ref([
-    { label: "Sex", value: "Male" },
-    { label: "Birth Date", value: "12.03.2023" },
-    { label: "Breed", value: "American Shorthair" },
-    { label: "Weight", value: "4.5kg" },
-    { label: "Microchip No.", value: "9001330003382" },
-    { label: "Color", value: "White" },
+	{ label: "Sex", value: "Male" },
+	{ label: "Birth Date", value: "12.03.2023" },
+	{ label: "Breed", value: "American Shorthair" },
+	{ label: "Weight", value: "4.5kg" },
+	{ label: "Microchip No.", value: "9001330003382" },
+	{ label: "Color", value: "White" },
 ]);
 
 const feedingFields = ref([
-    { label: "Brand & Line", value: "Royal Canine, Adult Cat" },
-    { label: "Feeding Amount", value: "26 gr" },
-    { label: "Schedule", value: "2 times per day" },
+	{ label: "Brand & Line", value: "Royal Canine, Adult Cat" },
+	{ label: "Feeding Amount", value: "26 gr" },
+	{ label: "Schedule", value: "2 times per day" },
 ]);
 
 const mockVetVisits = [
-    {
-        imageSrc: "thonglor.png",
-        hospitalName: "Thonglor Pet Hospital",
-        appointmentDate: dayjs().toISOString(),
-        status: "pending",
-    },
-    {
-        imageSrc: "thonglor.png",
-        hospitalName: "Thonglor Pet Hospital",
-        appointmentDate: dayjs().add(2, "day").toISOString(),
-        status: "pending",
-    },
-    {
-        imageSrc: "thonglor.png",
-        hospitalName: "Thonglor Pet Hospital",
-        appointmentDate: dayjs().subtract(3, "day").toISOString(),
-        status: "completed",
-    },
-    {
-        imageSrc: "thonglor.png",
-        hospitalName: "Thonglor Pet Hospital",
-        appointmentDate: dayjs().subtract(1, "day").toISOString(),
-        status: "pending",
-    },
+	{
+		imageSrc: "thonglor.png",
+		hospitalName: "Thonglor Pet Hospital",
+		appointmentDate: dayjs().toISOString(),
+		status: "pending",
+	},
+	{
+		imageSrc: "thonglor.png",
+		hospitalName: "Thonglor Pet Hospital",
+		appointmentDate: dayjs().add(2, "day").toISOString(),
+		status: "pending",
+	},
+	{
+		imageSrc: "thonglor.png",
+		hospitalName: "Thonglor Pet Hospital",
+		appointmentDate: dayjs().subtract(3, "day").toISOString(),
+		status: "completed",
+	},
+	{
+		imageSrc: "thonglor.png",
+		hospitalName: "Thonglor Pet Hospital",
+		appointmentDate: dayjs().subtract(1, "day").toISOString(),
+		status: "pending",
+	},
 ];
 
 onMounted(loadDashboard);
