@@ -71,38 +71,38 @@ import { useDashboard } from "~/composables/useDashboard";
 const { isLoading, dashboardData, loadDashboard } = useDashboard();
 
 const fields = computed(() => {
-	const pet = dashboardData.value?.pet;
-	if (!pet) return [];
-	return [
-		{ label: "Sex", value: pet.sex },
-		{ label: "Birth Date", value: pet.birthDate },
-		{ label: "Breed", value: pet.breed },
-		{ label: "Weight", value: pet.weight },
-		{ label: "Microchip No.", value: pet.microchip },
-		{ label: "Color", value: pet.color },
-	];
+    const pet = dashboardData.value?.pet;
+    if (!pet) return [];
+    return [
+        { label: "Sex", value: pet.sex },
+        { label: "Birth Date", value: pet.birthDate },
+        { label: "Breed", value: pet.breed },
+        { label: "Weight", value: pet.weight },
+        { label: "Microchip No.", value: pet.microchip },
+        { label: "Color", value: pet.color },
+    ];
 });
 
 const feedingFields = computed(() => {
-	const diet = dashboardData.value?.diet ?? [];
-	const first = diet[0] ?? {};
-	return [
-		{ label: "Brand & Line", value: first.brand },
-		{ label: "Feeding Amount", value: first.amount },
-		{ label: "Schedule", value: first.schedule },
-	];
+    const diet = dashboardData.value?.diet ?? [];
+    const first = diet[0] ?? {};
+    return [
+        { label: "Brand & Line", value: first.brand },
+        { label: "Feeding Amount", value: first.amount },
+        { label: "Schedule", value: first.schedule },
+    ];
 });
 
 const vetVisits = computed(() => {
-	return (dashboardData.value?.visits ?? []).map((v) => {
-		const visitTime = dayjs(v.time);
-		return {
-			imageSrc: "thonglor.png", // or v.clinicLogo if you have one
-			hospitalName: v.clinicName, // from your API
-			appointmentDate: visitTime.toISOString(), // pass ISO into your card
-			status: visitTime.isBefore(dayjs()) ? "completed" : "pending",
-		};
-	});
+    return (dashboardData.value?.visits ?? []).map((v) => {
+        const visitTime = dayjs(v.time);
+        return {
+            imageSrc: "/images/thonglor.png", // or v.clinicLogo if you have one
+            hospitalName: v.clinicName, // from your API
+            appointmentDate: visitTime.toISOString(), // pass ISO into your card
+            status: visitTime.isBefore(dayjs()) ? "completed" : "pending",
+        };
+    });
 });
 
 // const mockVetVisits = [
