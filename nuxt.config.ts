@@ -14,7 +14,6 @@ export default defineNuxtConfig({
 	image: {
 		inject: true,
 		format: ["avif", "webp", "svg"],
-		dir: "assets/images",
 	},
 	app: {
 		head: {

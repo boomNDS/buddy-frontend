@@ -5,7 +5,7 @@
                 class="flex items-center justify-between absolute top-6 left-3 w-[343px]"
             >
                 <NuxtImg
-                    src="/logo.png"
+                    src="/images/logo.png"
                     class="w-[64px] h-[18px] transform transition-transform duration-500 ease-in-out hover:scale-[0.9] cursor-pointer"
                     alt="Buddy Logo"
                 />
@@ -19,7 +19,10 @@
                     />
                 </Button>
             </div>
-            <NuxtImg src="/cat-hero.png" class="w-full max-w-lg-[343px]" />
+            <NuxtImg
+                src="/images/cat-hero.png"
+                class="w-full max-w-lg-[343px]"
+            />
         </section>
     </div>
 </template>

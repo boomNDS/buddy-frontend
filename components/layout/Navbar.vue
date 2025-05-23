@@ -2,7 +2,7 @@
     <div class="mt-10 mb-4 relative text-white">
         <div class="overflow-hidden px-4">
             <img
-                src="/navbar_curve.svg"
+                src="/images/navbar_curve.svg"
                 alt="Navbar Curve"
                 class="w-full block"
             />
