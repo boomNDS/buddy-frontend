@@ -55,7 +55,7 @@
                 title="Vet Visits"
                 icon="mdi:pets"
                 iconLabel="Pets"
-                :items="mockVetVisits"
+                :items="vetVisits"
                 :showEdit="true"
                 :hideDots="true"
             />
@@ -65,52 +65,72 @@
 
 <script setup lang="ts">
 import dayjs from "dayjs";
-import { onMounted, ref } from "vue";
+import { computed, onMounted } from "vue";
 import { useDashboard } from "~/composables/useDashboard";
 
-const { isLoading, loadDashboard } = useDashboard();
+const { isLoading, dashboardData, loadDashboard } = useDashboard();
 
-const fields = ref([
-	{ label: "Sex", value: "Male" },
-	{ label: "Birth Date", value: "12.03.2023" },
-	{ label: "Breed", value: "American Shorthair" },
-	{ label: "Weight", value: "4.5kg" },
-	{ label: "Microchip No.", value: "9001330003382" },
-	{ label: "Color", value: "White" },
-]);
+const fields = computed(() => {
+	const pet = dashboardData.value?.pet;
+	if (!pet) return [];
+	return [
+		{ label: "Sex", value: pet.sex },
+		{ label: "Birth Date", value: pet.birthDate },
+		{ label: "Breed", value: pet.breed },
+		{ label: "Weight", value: pet.weight },
+		{ label: "Microchip No.", value: pet.microchip },
+		{ label: "Color", value: pet.color },
+	];
+});
 
-const feedingFields = ref([
-	{ label: "Brand & Line", value: "Royal Canine, Adult Cat" },
-	{ label: "Feeding Amount", value: "26 gr" },
-	{ label: "Schedule", value: "2 times per day" },
-]);
+const feedingFields = computed(() => {
+	const diet = dashboardData.value?.diet ?? [];
+	const first = diet[0] ?? {};
+	return [
+		{ label: "Brand & Line", value: first.brand },
+		{ label: "Feeding Amount", value: first.amount },
+		{ label: "Schedule", value: first.schedule },
+	];
+});
 
-const mockVetVisits = [
-	{
-		imageSrc: "thonglor.png",
-		hospitalName: "Thonglor Pet Hospital",
-		appointmentDate: dayjs().toISOString(),
-		status: "pending",
-	},
-	{
-		imageSrc: "thonglor.png",
-		hospitalName: "Thonglor Pet Hospital",
-		appointmentDate: dayjs().add(2, "day").toISOString(),
-		status: "pending",
-	},
-	{
-		imageSrc: "thonglor.png",
-		hospitalName: "Thonglor Pet Hospital",
-		appointmentDate: dayjs().subtract(3, "day").toISOString(),
-		status: "completed",
-	},
-	{
-		imageSrc: "thonglor.png",
-		hospitalName: "Thonglor Pet Hospital",
-		appointmentDate: dayjs().subtract(1, "day").toISOString(),
-		status: "pending",
-	},
-];
+const vetVisits = computed(() => {
+	return (dashboardData.value?.visits ?? []).map((v) => {
+		const visitTime = dayjs(v.time);
+		return {
+			imageSrc: "thonglor.png", // or v.clinicLogo if you have one
+			hospitalName: v.clinicName, // from your API
+			appointmentDate: visitTime.toISOString(), // pass ISO into your card
+			status: visitTime.isBefore(dayjs()) ? "completed" : "pending",
+		};
+	});
+});
+
+// const mockVetVisits = [
+//     {
+//         imageSrc: "thonglor.png",
+//         hospitalName: "Thonglor Pet Hospital",
+//         appointmentDate: dayjs().toISOString(),
+//         status: "pending",
+//     },
+//     {
+//         imageSrc: "thonglor.png",
+//         hospitalName: "Thonglor Pet Hospital",
+//         appointmentDate: dayjs().add(2, "day").toISOString(),
+//         status: "pending",
+//     },
+//     {
+//         imageSrc: "thonglor.png",
+//         hospitalName: "Thonglor Pet Hospital",
+//         appointmentDate: dayjs().subtract(3, "day").toISOString(),
+//         status: "completed",
+//     },
+//     {
+//         imageSrc: "thonglor.png",
+//         hospitalName: "Thonglor Pet Hospital",
+//         appointmentDate: dayjs().subtract(1, "day").toISOString(),
+//         status: "pending",
+//     },
+// ];
 
 onMounted(loadDashboard);
 </script>

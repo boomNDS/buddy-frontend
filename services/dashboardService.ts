@@ -44,13 +44,13 @@ export interface IMedication {
 	updatedAt: string;
 }
 
-export async function fetchDashboard(): Promise<IDashboard[]> {
+export async function fetchDashboard(): Promise<IDashboard | null> {
 	const { get } = useApi();
 
 	try {
-		return await get<IDashboard[]>("/dashboard");
+		return await get<IDashboard>("/dashboard");
 	} catch (error) {
 		console.error("Error fetching dashboard:", error);
-		return [];
+		return null;
 	}
 }

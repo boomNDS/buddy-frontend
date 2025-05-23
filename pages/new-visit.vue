@@ -73,19 +73,7 @@
                 <Label for="date" class="text-sm font-medium text-gray-700"
                     >Date</Label
                 >
-                <div class="relative">
-                    <Input
-                        id="date"
-                        type="date"
-                        v-model="formData.date"
-                        class="w-full bg-white px-4 py-2 rounded-md border border-input focus:border-[#425F58] focus:ring-1 focus:ring-[#425F58] outline-none transition-colors"
-                    />
-                    <div
-                        class="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none text-gray-400"
-                    >
-                        <Icon name="heroicons:calendar" class="w-4 h-4" />
-                    </div>
-                </div>
+                <DatePicker label="Visit Date" v-model="formData.date" />
                 <p
                     v-if="errors.date"
                     class="text-sm text-red-500 mt-1 flex items-center"
@@ -161,11 +149,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from "vue";
-import { useRouter } from "vue-router";
-
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
 	Select,
@@ -176,6 +160,8 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import { TimePicker } from "@/components/ui/time-picker";
+import { onMounted } from "vue";
+import { useRouter } from "vue-router";
 import { useVetVisitForm } from "~/composables/useVetVisitForm";
 
 const router = useRouter();

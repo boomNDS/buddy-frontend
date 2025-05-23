@@ -3,7 +3,7 @@ import type { IDashboard } from "@/services/dashboardService";
 import { ref } from "vue";
 
 export function useDashboard() {
-	const dashboardData = ref<IDashboard[]>([]);
+	const dashboardData = ref<IDashboard | null>(null);
 	const isLoading = ref(false);
 	const error = ref<string | null>(null);
 
